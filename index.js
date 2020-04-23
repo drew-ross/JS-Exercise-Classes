@@ -142,6 +142,9 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
+
+// STRETCH - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+
 class Instructor extends Lambdasian {
   constructor(args) {
     super(args);
@@ -153,7 +156,8 @@ class Instructor extends Lambdasian {
     return `Today we are learning about ${subject}`;
   }
   grade(student, subject) {
-    return `${student.name} receives a perfect score on ${subject}.`;
+    student.grade += Math.round(Math.random() * 20 - 10); //Add or subtract 0 - 10 points to student's grade.
+    return `${student.name} receives a perfect score on ${subject}.`; //Not part of stretch
   }
 }
 
@@ -172,12 +176,19 @@ class Instructor extends Lambdasian {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
+
+// STRETCH - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+// - Add a graduate method to a student.
+//       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+//       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+
 class Student extends Lambdasian {
   constructor(args) {
     super(args);
     this.previousBackground = args.previousBackground;
     this.className = args.className;
     this.favSubjects = args.favSubjects;
+    this.grade = 50 + Math.round(Math.random() * 50); //Gives student random starting grade 50 - 100
   }
   listSubjects() {
     return `Loving ${this.favSubjects}!`;
@@ -187,6 +198,13 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+  graduate() {
+    if(this.grade > 70) {
+      return `${this.name} is ready to graduate!`;
+    } else {
+      return `${this.name} needs some more practice.`;
+    }
   }
 }
 
@@ -225,6 +243,8 @@ class ProjectManager extends Instructor {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
