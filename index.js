@@ -78,7 +78,31 @@ class Person {
 */
 
 class Car {
-
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.odometer = 0;
+    this.tank = 0;
+  }
+  fill(gallons) {
+    this.tank += gallons;
+    return `Filled ${this.model} with ${gallons} gallons, the tank now contains ${this.tank} gallons.`;
+  }
+  drive(distance) {
+    if(this.tank <= 0) {
+      return `${this.model} needs gas.`;
+    }
+    while(distance > 0 && this.tank > 0) {
+      this.odometer++
+      distance--;
+      this.tank -= 1 / this.milesPerGallon;
+      this.tank = Math.round(this.tank * 1000) / 1000; //Fix floating point error
+      if(this.tank <= 0) {
+        return `I ran out of fuel at ${this.odometer} miles`;
+      }
+    }
+    return `I arrived at the destination at ${this.odometer} miles`;
+  }
 }
 
 /*
